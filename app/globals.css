@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 10%;
+    --card: 220 20% 98%;
+    --card-foreground: 240 10% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 10%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 240 10% 10%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 240 5% 45%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 217 91% 60%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 240 6% 4%;
+    --foreground: 0 0% 96%;
+    --card: 240 4% 9%;
+    --card-foreground: 0 0% 96%;
+    --popover: 240 4% 9%;
+    --popover-foreground: 0 0% 96%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 4% 16%;
+    --secondary-foreground: 0 0% 96%;
+    --muted: 240 4% 16%;
+    --muted-foreground: 240 5% 65%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 96%;
+    --border: 240 4% 15%;
+    --input: 240 4% 15%;
+    --ring: 217 91% 60%;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html.custom-cursor-active,
+html.custom-cursor-active * {
+  cursor: none !important;
+}
+
+body {
+  @apply bg-background text-foreground;
+  font-feature-settings: "cv11", "ss01";
+  transition: background-color 300ms ease, color 300ms ease;
+}
+
+::selection {
+  background-color: #3b82f6;
+  color: #ffffff;
+}
+
+/* thin scrollbar, matches accent on hover */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-neutral-300 dark:bg-surface-border rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-accent-500;
+}
+
+@layer utilities {
+  .nav-link {
+    @apply flex items-center gap-3 rounded-lg text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-white/5 hover:text-neutral-900 dark:hover:text-white transition-colors;
+  }
+  .nav-link-active {
+    @apply bg-neutral-100 dark:bg-white/5 text-neutral-900 dark:text-white font-medium;
+  }
+}
+
