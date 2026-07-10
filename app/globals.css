@@ -10,7 +10,7 @@
     --card-foreground: 240 10% 10%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 10%;
-    --primary: 217 91% 60%;
+    --primary: 25 95% 53%;
     --primary-foreground: 0 0% 100%;
     --secondary: 220 14% 96%;
     --secondary-foreground: 240 10% 10%;
@@ -20,7 +20,8 @@
     --destructive-foreground: 0 0% 100%;
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 217 91% 60%;
+    --ring: 25 95% 53%;
+    --accent-rgb: 249 115 22;
     --radius: 0.75rem;
   }
 
@@ -31,7 +32,7 @@
     --card-foreground: 0 0% 96%;
     --popover: 240 4% 9%;
     --popover-foreground: 0 0% 96%;
-    --primary: 217 91% 60%;
+    --primary: 25 95% 53%;
     --primary-foreground: 0 0% 100%;
     --secondary: 240 4% 16%;
     --secondary-foreground: 0 0% 96%;
@@ -41,7 +42,7 @@
     --destructive-foreground: 0 0% 96%;
     --border: 240 4% 15%;
     --input: 240 4% 15%;
-    --ring: 217 91% 60%;
+    --ring: 25 95% 53%;
   }
 }
 
@@ -57,11 +58,11 @@ html.custom-cursor-active * {
 body {
   @apply bg-background text-foreground;
   font-feature-settings: "cv11", "ss01";
-  transition: background-color 300ms ease, color 300ms ease;
+  transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1), color 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 ::selection {
-  background-color: #3b82f6;
+  background-color: rgb(var(--accent-rgb) / 0.85);
   color: #ffffff;
 }
 
@@ -82,10 +83,29 @@ body {
 
 @layer utilities {
   .nav-link {
-    @apply flex items-center gap-3 rounded-lg text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-white/5 hover:text-neutral-900 dark:hover:text-white transition-colors;
+    @apply flex items-center gap-3 rounded-lg text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-white/5 hover:text-neutral-900 dark:hover:text-white transition-colors duration-300;
   }
   .nav-link-active {
-    @apply bg-neutral-100 dark:bg-white/5 text-neutral-900 dark:text-white font-medium;
+    @apply bg-accent-500/10 text-neutral-900 dark:text-white font-medium hover:bg-accent-500/15;
   }
+}
+
+@keyframes assemble-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.75);
+  }
+  65% {
+    opacity: 1;
+    transform: translateY(0) scale(1.06);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-assemble-pop {
+  animation: assemble-pop 480ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 

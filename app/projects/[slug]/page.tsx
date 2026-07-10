@@ -5,6 +5,7 @@ import { projects } from "@/data/profile";
 import { TechIcon } from "@/components/TechIcon";
 import { ProjectCoverImage } from "@/components/ProjectCoverImage";
 import { CodeBlock } from "@/components/CodeBlock";
+import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
@@ -33,7 +34,7 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
       </Link>
 
       <h1 className="mt-4 text-3xl font-semibold text-foreground">{project.title}</h1>
-      <p className="mt-3 text-lg leading-relaxed text-muted-foreground">{project.description}</p>
+      <p className="mt-3 text-justify text-lg leading-relaxed text-muted-foreground">{project.description}</p>
 
       <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-2">
@@ -75,74 +76,84 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
 
       <Separator className="mt-10" />
 
-      <Section icon={Layers} title="Overview">
-        <p className="text-[15px] leading-relaxed text-neutral-600 dark:text-neutral-300">{project.overview}</p>
-      </Section>
+      <Reveal>
+        <Section icon={Layers} title="Overview">
+          <p className="text-justify text-[15px] leading-relaxed text-neutral-600 dark:text-neutral-300">{project.overview}</p>
+        </Section>
+      </Reveal>
 
       <Separator />
 
-      <Section icon={Sparkles} title="Tech Stack">
-        <div className="flex flex-col gap-4">
-          {project.techDetails.map((t) => (
-            <div key={t.name} className="flex items-start gap-3">
-              <span className="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-muted">
-                <TechIcon name={t.name} size={16} />
-              </span>
-              <p className="text-[15px] leading-relaxed text-neutral-600 dark:text-neutral-300">
-                <span className="font-semibold text-foreground">{t.name}</span> — {t.description}
-              </p>
-            </div>
-          ))}
-        </div>
-      </Section>
+      <Reveal>
+        <Section icon={Sparkles} title="Tech Stack">
+          <div className="flex flex-col gap-4">
+            {project.techDetails.map((t) => (
+              <div key={t.name} className="flex items-start gap-3">
+                <span className="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-muted">
+                  <TechIcon name={t.name} size={16} />
+                </span>
+                <p className="text-justify text-[15px] leading-relaxed text-neutral-600 dark:text-neutral-300">
+                  <span className="font-semibold text-foreground">{t.name}:</span> {t.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Section>
+      </Reveal>
 
       <Separator />
 
-      <Section icon={Wrench} title="Features">
-        <div className="flex flex-col gap-5">
-          {project.features.map((f) => (
-            <div key={f.title}>
-              <h3 className="text-base font-semibold text-foreground">{f.title}</h3>
-              <p className="mt-1 text-[15px] leading-relaxed text-neutral-600 dark:text-neutral-300">
-                {f.description}
-              </p>
-            </div>
-          ))}
-        </div>
-      </Section>
+      <Reveal>
+        <Section icon={Wrench} title="Features">
+          <div className="flex flex-col gap-5">
+            {project.features.map((f) => (
+              <div key={f.title}>
+                <h3 className="text-base font-semibold text-foreground">{f.title}</h3>
+                <p className="mt-1 text-justify text-[15px] leading-relaxed text-neutral-600 dark:text-neutral-300">
+                  {f.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Section>
+      </Reveal>
 
       <Separator />
 
-      <Section icon={Wrench} title="Challenges & Solutions">
-        <div className="flex flex-col gap-5">
-          {project.challenges.map((c) => (
-            <div key={c.title}>
-              <h3 className="text-base font-semibold text-foreground">{c.title}</h3>
-              <p className="mt-1 text-[15px] leading-relaxed text-neutral-600 dark:text-neutral-300">
-                {c.description}
-              </p>
-              {c.code && (
-                <div className="mt-3">
-                  <CodeBlock code={c.code} />
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </Section>
+      <Reveal>
+        <Section icon={Wrench} title="Challenges & Solutions">
+          <div className="flex flex-col gap-5">
+            {project.challenges.map((c) => (
+              <div key={c.title}>
+                <h3 className="text-base font-semibold text-foreground">{c.title}</h3>
+                <p className="mt-1 text-justify text-[15px] leading-relaxed text-neutral-600 dark:text-neutral-300">
+                  {c.description}
+                </p>
+                {c.code && (
+                  <div className="mt-3">
+                    <CodeBlock code={c.code} />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </Section>
+      </Reveal>
 
       <Separator />
 
-      <Section icon={Lightbulb} title="Lessons Learned">
-        <ul className="flex flex-col gap-2.5">
-          {project.lessons.map((l, i) => (
-            <li key={i} className="flex gap-2.5 text-[15px] leading-relaxed text-neutral-600 dark:text-neutral-300">
-              <span className="mt-2.5 h-1 w-1 flex-shrink-0 rounded-full bg-accent-500" />
-              {l}
-            </li>
-          ))}
-        </ul>
-      </Section>
+      <Reveal>
+        <Section icon={Lightbulb} title="Lessons Learned">
+          <ul className="flex flex-col gap-2.5">
+            {project.lessons.map((l, i) => (
+              <li key={i} className="flex gap-2.5 text-justify text-[15px] leading-relaxed text-neutral-600 dark:text-neutral-300">
+                <span className="mt-2.5 h-1 w-1 flex-shrink-0 rounded-full bg-accent-500" />
+                {l}
+              </li>
+            ))}
+          </ul>
+        </Section>
+      </Reveal>
     </div>
   );
 }

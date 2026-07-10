@@ -28,14 +28,14 @@ export function GlassHover({
       onMouseMove={handleMove}
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
-      className={cn("relative overflow-hidden", className)}
+      className={cn("group relative overflow-hidden", className)}
       {...props}
     >
       <span
         className="pointer-events-none absolute inset-0 z-10 transition-opacity duration-300"
         style={{
           opacity: hovering ? 1 : 0,
-          background: `radial-gradient(${glowSize}px circle at ${pos.x}% ${pos.y}%, rgba(59,130,246,0.22), rgba(59,130,246,0.06) 40%, transparent 70%)`,
+          background: `radial-gradient(${glowSize}px circle at ${pos.x}% ${pos.y}%, rgb(var(--accent-rgb) / 0.22), rgb(var(--accent-rgb) / 0.06) 40%, transparent 70%)`,
         }}
       />
       <span

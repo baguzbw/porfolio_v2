@@ -8,23 +8,29 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      transitionDuration: {
+        DEFAULT: "300ms",
+      },
+      transitionTimingFunction: {
+        DEFAULT: "cubic-bezier(0.4, 0, 0.2, 1)",
+      },
       fontFamily: {
         sans: ["var(--font-jakarta)", "sans-serif"],
         signature: ["var(--font-signature)", "cursive"],
       },
       colors: {
         accent: {
-          DEFAULT: "#3B82F6",
-          50: "#EEF4FF",
-          100: "#D9E6FF",
-          200: "#B3CCFF",
-          300: "#82ABFF",
-          400: "#5A8CFA",
-          500: "#3B82F6",
-          600: "#2563EB",
-          700: "#1D4ED8",
-          800: "#1E40AF",
-          900: "#1E3A8A",
+          DEFAULT: "#F97316",
+          50: "#FFF7ED",
+          100: "#FFEDD5",
+          200: "#FED7AA",
+          300: "#FDBA74",
+          400: "#FB923C",
+          500: "#F97316",
+          600: "#EA580C",
+          700: "#C2410C",
+          800: "#9A3412",
+          900: "#7C2D12",
         },
         surface: {
           DEFAULT: "#0A0A0B",

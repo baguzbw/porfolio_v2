@@ -3,6 +3,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { ExperienceCard } from "@/components/ExperienceCard";
 import { GlassCard } from "@/components/GlassCard";
 import { LogoTile } from "@/components/LogoTile";
+import { Reveal } from "@/components/Reveal";
 import { CardContent } from "@/components/ui/card";
 import { profile, experience, education } from "@/data/profile";
 
@@ -11,15 +12,15 @@ export default function AboutPage() {
     <div className="max-w-3xl">
       <PageHeader title="About" subtitle="A brief introduction to who I am." size="lg" />
 
-      <div className="flex flex-col gap-4 text-lg leading-relaxed text-neutral-600 dark:text-neutral-300">
+      <div className="flex flex-col gap-4 text-justify text-lg leading-relaxed text-neutral-600 dark:text-neutral-300">
         {profile.about.map((p, i) => (
           <p key={i}>{p}</p>
         ))}
       </div>
 
       <div className="mt-8">
-        <p className="text-base text-neutral-500 dark:text-neutral-400">Best Regards,</p>
-        <p className="mt-1 font-signature text-5xl text-accent-500">{profile.name.split(" ")[0]}</p>
+        <p className="text-lg text-neutral-600 dark:text-neutral-300">Best Regards,</p>
+        <p className="mt-3 font-signature text-5xl text-accent-500">{profile.name.split(" ")[0]}</p>
       </div>
 
       <section className="mt-12">
@@ -30,8 +31,10 @@ export default function AboutPage() {
         <p className="mt-1.5 mb-5 text-base text-neutral-500 dark:text-neutral-400">My professional journey.</p>
 
         <div className="flex flex-col gap-3">
-          {experience.map((job) => (
-            <ExperienceCard key={job.title + job.company} job={job} />
+          {experience.map((job, i) => (
+            <Reveal key={job.title + job.company} delay={Math.min(i * 60, 240)}>
+              <ExperienceCard job={job} />
+            </Reveal>
           ))}
         </div>
       </section>
@@ -44,24 +47,26 @@ export default function AboutPage() {
         <p className="mt-1.5 mb-5 text-base text-neutral-500 dark:text-neutral-400">My educational journey.</p>
 
         <div className="flex flex-col gap-3">
-          {education.map((edu) => (
-            <GlassCard key={edu.school}>
-              <CardContent className="relative flex items-start gap-4">
-                <LogoTile src={edu.logoSrc} alt={`${edu.school} logo`} initials={edu.logoInitials} size="lg" />
-                <div className="flex flex-col gap-2">
-                  <div>
-                    <h3 className="text-base font-semibold text-foreground">{edu.school}</h3>
-                    <p className="mt-0.5 text-sm text-muted-foreground">
-                      {edu.degree} · {edu.field}
-                      {edu.gpa && <> · GPA: {edu.gpa}</>}
+          {education.map((edu, i) => (
+            <Reveal key={edu.school} delay={Math.min(i * 60, 240)}>
+              <GlassCard>
+                <CardContent className="relative flex items-start gap-4">
+                  <LogoTile src={edu.logoSrc} alt={`${edu.school} logo`} initials={edu.logoInitials} size="lg" />
+                  <div className="flex flex-col gap-2">
+                    <div>
+                      <h3 className="text-base font-semibold text-foreground">{edu.school}</h3>
+                      <p className="mt-0.5 text-sm text-muted-foreground">
+                        {edu.degree} · {edu.field}
+                        {edu.gpa && <> · GPA: {edu.gpa}</>}
+                      </p>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      {edu.period} · {edu.location}
                     </p>
                   </div>
-                  <p className="text-xs text-muted-foreground">
-                    {edu.period} · {edu.location}
-                  </p>
-                </div>
-              </CardContent>
-            </GlassCard>
+                </CardContent>
+              </GlassCard>
+            </Reveal>
           ))}
         </div>
       </section>

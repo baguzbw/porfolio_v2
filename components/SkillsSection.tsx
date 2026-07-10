@@ -54,7 +54,7 @@ function SkillBadge({ skill, index = 0 }: { skill: string; index?: number }) {
     <GlassHover
       glowSize={130}
       className={cn(
-        "flex animate-in items-center gap-2.5 rounded-full border fade-in-0 slide-in-from-bottom-1 px-4 py-2.5 text-base font-medium text-neutral-700 duration-300 ease-out dark:text-neutral-200 transition-[transform,box-shadow] hover:-translate-y-0.5 hover:shadow-md hover:shadow-black/5 dark:hover:shadow-black/30",
+        "flex animate-assemble-pop items-center gap-2.5 rounded-full border px-4 py-2.5 text-base font-medium text-neutral-700 dark:text-neutral-200 transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-0.5 hover:shadow-md hover:shadow-black/5 dark:hover:shadow-black/30",
         mono && "border-border bg-muted"
       )}
       style={{
@@ -65,7 +65,11 @@ function SkillBadge({ skill, index = 0 }: { skill: string; index?: number }) {
           : {}),
       }}
     >
-      <TechIcon name={skill} size={19} className="relative z-20" />
+      <TechIcon
+        name={skill}
+        size={19}
+        className="relative z-20 transition-transform duration-300 ease-out group-hover:-rotate-6 group-hover:scale-125"
+      />
       <span className="relative z-20">{skill}</span>
     </GlassHover>
   );

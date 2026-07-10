@@ -49,7 +49,7 @@ export function ExperienceCard({ job }: { job: Experience }) {
         </div>
 
         {open && (
-          <div className="mt-1 flex flex-col gap-4">
+          <div className="mt-1 flex flex-col gap-4 pl-24 animate-in fade-in-0 slide-in-from-top-1 duration-300 ease-out">
             <Separator />
             <Section icon={ListChecks} label="Responsibilities" items={job.responsibilities} />
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

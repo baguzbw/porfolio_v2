@@ -1,6 +1,7 @@
 import { MapPin, Briefcase, Code2 } from "lucide-react";
 import { profile } from "@/data/profile";
 import { SkillsSection } from "@/components/SkillsSection";
+import { RotatingStatus } from "@/components/RotatingStatus";
 import { Separator } from "@/components/ui/separator";
 
 export default function HomePage() {
@@ -15,11 +16,11 @@ export default function HomePage() {
         </span>
         <span className="flex items-center gap-1.5">
           <Briefcase size={16} />
-          {profile.status}
+          <RotatingStatus />
         </span>
       </div>
 
-      <p className="mt-6 text-lg leading-relaxed text-neutral-600 dark:text-neutral-300">
+      <p className="mt-6 text-justify text-lg leading-relaxed text-neutral-600 dark:text-neutral-300">
         {profile.tagline}
       </p>
 

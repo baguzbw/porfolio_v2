@@ -1,13 +1,17 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { Home, User, Award, FolderKanban, Github, Linkedin, Mail, Globe, ChevronRight } from "lucide-react";
+import { Home, User, Award, FolderKanban, Github, Linkedin, Mail, Globe, ChevronRight, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { profile } from "@/data/profile";
 import { ThemeToggle } from "./ThemeToggle";
+import { RotatingStatus } from "./RotatingStatus";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
+import { useCommandPalette } from "./CommandPaletteProvider";
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
@@ -31,13 +35,25 @@ const initials = profile.name
 
 export function Sidebar() {
   const pathname = usePathname();
+  const [photoFailed, setPhotoFailed] = useState(false);
+  const { setOpen: setCommandPaletteOpen } = useCommandPalette();
 
   return (
     <aside className="flex h-full w-full flex-col justify-between bg-background py-12 pl-8 pr-6 transition-colors duration-300">
       <div>
         <div className="flex flex-col items-center text-center">
-          <div className="flex h-28 w-28 items-center justify-center rounded-full bg-gradient-to-br from-accent-400 to-accent-700 text-4xl font-semibold text-white ring-2 ring-accent-500/30 ring-offset-4 ring-offset-background">
-            {initials}
+          <div className="relative flex h-28 w-28 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-accent-400 to-accent-700 text-4xl font-semibold text-white ring-2 ring-accent-500/30 ring-offset-4 ring-offset-background transition-transform duration-300 hover:scale-105">
+            {!photoFailed && (
+              <Image
+                src={profile.photoSrc}
+                alt={profile.name}
+                fill
+                sizes="112px"
+                className="object-cover"
+                onError={() => setPhotoFailed(true)}
+              />
+            )}
+            {photoFailed && initials}
           </div>
           <h1 className="mt-6 flex items-center gap-1.5 text-2xl font-semibold text-foreground">
             {profile.name}
@@ -48,7 +64,7 @@ export function Sidebar() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-500 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-accent-500" />
             </span>
-            {profile.status}
+            <RotatingStatus />
           </Badge>
 
           <div className="mt-7 flex items-center gap-2.5">
@@ -69,27 +85,43 @@ export function Sidebar() {
           </div>
         </div>
 
-        <nav className="mt-12 flex flex-col gap-2">
-          {navItems.map(({ href, label, icon: Icon }) => {
+        <button
+          type="button"
+          onClick={() => setCommandPaletteOpen(true)}
+          className="mt-8 flex w-full items-center gap-2.5 rounded-lg border border-border px-3.5 py-2.5 text-sm text-muted-foreground transition-colors duration-200 hover:border-accent-500 hover:text-accent-500"
+        >
+          <Search size={15} />
+          <span className="flex-1 text-left">Search</span>
+          <kbd className="rounded border border-border px-1.5 py-0.5 text-[10px]">Ctrl K</kbd>
+        </button>
+
+        <nav className="mt-5 flex flex-col gap-2">
+          {navItems.map(({ href, label, icon: Icon }, i) => {
             const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
             return (
               <Link
                 key={href}
                 href={href}
-                className={cn("nav-link group relative px-3.5 py-3 text-lg", active && "nav-link-active")}
-              >
-                {active && (
-                  <span className="absolute left-0 top-1/2 h-5 w-1 -translate-y-1/2 animate-in rounded-full bg-accent-500 zoom-in-50 fade-in-0 duration-200" />
+                style={{ animationDelay: `${i * 60}ms`, animationFillMode: "backwards" }}
+                className={cn(
+                  "nav-link group relative animate-in px-3.5 py-3 text-lg fade-in-0 slide-in-from-left-2 duration-300 ease-out",
+                  active && "nav-link-active"
                 )}
+              >
                 <Icon
                   size={20}
                   className={cn(
                     "transition-transform duration-200 group-hover:translate-x-0.5 group-hover:scale-110",
-                    active && "text-accent-500 dark:text-accent-400"
+                    active && "text-accent-600 dark:text-accent-400"
                   )}
                 />
                 {label}
-                {active && <ChevronRight size={20} className="ml-auto text-accent-500" />}
+                {active && (
+                  <ChevronRight
+                    size={18}
+                    className="ml-auto animate-in text-accent-500 fade-in-0 zoom-in-50 duration-200"
+                  />
+                )}
               </Link>
             );
           })}

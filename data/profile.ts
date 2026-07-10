@@ -4,21 +4,24 @@
 export const profile = {
   name: "Bagus Brang Wicaksono",
   role: "Software Engineer",
+  /** path under /public — drop your photo at this path (e.g. public/avatar.jpg) to replace the initials avatar in the sidebar */
+  photoSrc: "/avatar.jpeg",
   tagline:
-    "Frontend Developer & System Analyst building structured, production-grade web platforms — currently working toward a software engineering career in Japan.",
+    "Frontend Developer & System Analyst building structured, production-grade web platforms, from UI implementation down to the data and business logic underneath. I work across Next.js/React frontends and Oracle SQL/Supabase-backed systems, pairing hands-on development with clear technical documentation so what ships is both functional and maintainable.",
   location: "Surakarta, Indonesia",
   status: "Open to Work",
+  statuses: ["Open to Work", "Available for Freelance", "Building Side Projects"],
   email: "bagusbwicaksono5@gmail.com",
   phone: "+62 812-2943-8346",
   links: {
-    github: "https://github.com/baguswicaksono", // TODO: confirm exact GitHub handle
+    github: "https://github.com/baguswicaksono", 
     linkedin: "https://linkedin.com/in/baguswicaksono",
     portfolio: "https://baguswicaksono.vercel.app",
   },
   about: [
-    "I'm Bagus, a Surakarta-based Software Engineer focused on building web platforms that are well-structured, maintainable, and grounded in real requirements — not just interfaces that look finished.",
+    "I'm Bagus, a Surakarta-based Software Engineer focused on building web platforms that are well-structured, maintainable, and grounded in real requirements, not just interfaces that look finished.",
     "My work spans frontend engineering (Next.js, React, TypeScript) and backend/systems analysis (Oracle SQL, Supabase, ERP data pipelines), which lets me move between UI implementation and the data and business logic underneath it.",
-    "I combine technical execution with structured documentation and clear communication — writing Functional Design Documents, use cases, and process flows alongside the code itself. Long-term, I'm working toward a software engineering career in Japan, currently preparing my Japanese language proficiency and technical portfolio for that path.",
+    "I combine technical execution with structured documentation and clear communication: writing Functional Design Documents, use cases, and process flows alongside the code itself, so requirements stay traceable from planning through to production.",
   ],
 };
 
@@ -44,9 +47,9 @@ export const experience: Experience[] = [
     company: "INCO Academy",
     companyContext: "Green tech / sustainability academy",
     logoInitials: "IA",
-    logoSrc: "/logos/inco-academy.png",
-    location: "Remote — France",
-    period: "Jul 2025 — Sep 2025",
+    logoSrc: "/logos/inco-academy.jpg",
+    location: "Paris, France",
+    period: "Jul 2025 – Sep 2025",
     duration: "3 months",
     type: "Internship",
     workMode: "Remote",
@@ -56,13 +59,10 @@ export const experience: Experience[] = [
       "Assessed and implemented sustainable practices in technology operations and infrastructure.",
     ],
     whatILearned: [
-      "Learned how to quantify the environmental cost of AI/software systems — translating compute usage into carbon-footprint terms.",
+      "Learned how to quantify the environmental cost of AI/software systems, translating compute usage into carbon-footprint terms.",
       "Gained a framework for embedding sustainability considerations into a product development cycle rather than treating it as an afterthought.",
     ],
-    impact: [
-      "Contributed methodologies INCO Academy could apply across future green-tech product assessments.",
-      "Connected a sustainability lens to standard software development practices for the team.",
-    ],
+    impact: ["Contributed methodologies INCO Academy could apply across future green-tech product assessments.", "Connected a sustainability lens to standard software development practices for the team."],
   },
   {
     title: "System Analyst",
@@ -71,7 +71,7 @@ export const experience: Experience[] = [
     logoInitials: "IF",
     logoSrc: "/logos/ifars.png",
     location: "Karanganyar, Indonesia",
-    period: "Oct 2024 — Apr 2025",
+    period: "Oct 2024 – Apr 2025",
     duration: "7 months",
     type: "Contract",
     workMode: "Onsite",
@@ -94,9 +94,9 @@ export const experience: Experience[] = [
     company: "PT STAR Software Indonesia",
     companyContext: "Enterprise software house",
     logoInitials: "SS",
-    logoSrc: "/logos/star-software.png",
+    logoSrc: "/logos/star-software.jpg",
     location: "Yogyakarta, Indonesia",
-    period: "Feb 2024 — Jun 2024",
+    period: "Feb 2024 – Jun 2024",
     duration: "5 months",
     type: "Internship",
     workMode: "Onsite",
@@ -108,10 +108,7 @@ export const experience: Experience[] = [
       "Learned to design components for reuse across many different internal modules, not a single product.",
       "Gained experience layering custom Tailwind CSS on top of a design system (Ant Design) without breaking consistency.",
     ],
-    impact: [
-      "Cut UI development time across 10+ internal modules by supplying a shared component library.",
-      "Enabled faster, more consistent data lookup for enterprise clients through the multi-criteria filter and search feature.",
-    ],
+    impact: ["Cut UI development time across 10+ internal modules by supplying a shared component library.", "Enabled faster, more consistent data lookup for enterprise clients through the multi-criteria filter and search feature."],
   },
   {
     title: "Frontend Developer & UI/UX Designer Intern",
@@ -120,7 +117,7 @@ export const experience: Experience[] = [
     logoInitials: "SL",
     logoSrc: "/logos/sims-life-media.png",
     location: "Yogyakarta, Indonesia",
-    period: "Jan 2023 — Dec 2023",
+    period: "Jan 2023 – Dec 2023",
     duration: "1 year",
     type: "Internship",
     workMode: "Onsite",
@@ -130,13 +127,10 @@ export const experience: Experience[] = [
       "Delivered UI/UX wireframes in Figma; implemented pixel-accurate components in production.",
     ],
     whatILearned: [
-      "Learned the full loop of building a real-time monitoring UI — from Figma wireframe to a working dashboard consuming live IoT data.",
+      "Learned the full loop of building a real-time monitoring UI, from Figma wireframe to a working dashboard consuming live IoT data.",
       "Improved my ability to design REST API contracts between frontend and IoT backend services.",
     ],
-    impact: [
-      "Delivered a working device-monitoring dashboard used to track live IoT device status by category.",
-      "Sped up design-to-dev handoff by implementing pixel-accurate components directly from Figma wireframes.",
-    ],
+    impact: ["Delivered a working device-monitoring dashboard used to track live IoT device status by category.", "Sped up design-to-dev handoff by implementing pixel-accurate components directly from Figma wireframes."],
   },
 ];
 
@@ -154,29 +148,29 @@ export type Education = {
 export const education: Education[] = [
   {
     school: "Telkom University",
-    degree: "Bachelor's degree (in progress)",
-    field: "S1 Informatika — Distance Learning (PJJ)",
+    degree: "Bachelor's degree",
+    field: "S1 Informatika",
     gpa: "3.70 / 4.00",
-    period: "2025 — Expected 2027",
+    period: "2025 – Expected 2027",
     location: "Bandung, Indonesia",
     logoInitials: "TU",
-    logoSrc: "/logos/telkom-university.png",
+    logoSrc: "/logos/telkom-university.jpg",
   },
   {
     school: "Universitas Sebelas Maret (UNS)",
-    degree: "Associate's degree, D3",
-    field: "Teknik Informatika",
+    degree: "Associate's degree",
+    field: "D3 Teknik Informatika",
     gpa: "3.80 / 4.00",
-    period: "2021 — 2024",
+    period: "2021 – 2024",
     location: "Surakarta, Indonesia",
     logoInitials: "UNS",
-    logoSrc: "/logos/uns.png",
+    logoSrc: "/logos/uns.jpg",
   },
   {
     school: "SMK Negeri 2 Surakarta",
     degree: "Vocational High School",
     field: "Teknik Komputer Jaringan",
-    period: "2018 — 2021",
+    period: "2018 – 2021",
     location: "Surakarta, Indonesia",
     logoInitials: "SMK",
     logoSrc: "/logos/smkn-2-surakarta.png",
@@ -225,14 +219,14 @@ export type Achievement = {
 export const achievements: Achievement[] = [
   {
     title: "Junior Web Programmer",
-    issuer: "BNSP — Lembaga Sertifikasi Profesi",
+    issuer: "BNSP (Lembaga Sertifikasi Profesi)",
     type: "Certification",
     category: "Professional",
     issued: "Valid until 2027",
     image: "/certificates/bnsp-junior-web-programmer.png",
   },
   {
-    title: "TOEIC — Score 760",
+    title: "TOEIC (Score 760)",
     issuer: "ETS",
     type: "Certification",
     category: "Language",
@@ -267,7 +261,7 @@ export const achievements: Achievement[] = [
     image: "/certificates/redhat-system-administration-1.png",
   },
   {
-    title: "OpenShift Developer I — Introduction to Containers with Podman (DO188)",
+    title: "OpenShift Developer I: Introduction to Containers with Podman (DO188)",
     issuer: "Red Hat",
     type: "Course",
     category: "Infrastructure",
@@ -352,13 +346,12 @@ export const projects: Project[] = [
   {
     slug: "notary-office-company-profile",
     title: "Notary Office Company Profile",
-    description:
-      "Full-stack company profile site for Kantor Notaris & PPAT Norman Tuah Hamonangan Sinaga in Karawang — public-facing site plus a protected admin panel.",
+    description: "Full-stack company profile site for Kantor Notaris & PPAT Norman Tuah Hamonangan Sinaga in Karawang, public-facing site plus a protected admin panel.",
     type: "Web",
     category: "Freelance",
     tech: ["Next.js 14", "TypeScript", "Tailwind CSS", "Supabase", "Vercel"],
     highlights: [
-      "Designed and built the public site and admin panel from scratch — end-to-end from database schema to production deployment on Vercel.",
+      "Designed and built the public site and admin panel from scratch, end-to-end from database schema to production deployment on Vercel.",
       "Implemented Supabase Row Level Security (RLS) and auth for admin CRUD of legal articles and office activity posts.",
       "Handled App Router architecture, server/client component separation, and dynamic routing across 7 public pages.",
     ],
@@ -382,24 +375,22 @@ export const projects: Project[] = [
       {
         title: "Designing RLS policies correctly",
         description:
-          "Getting Supabase's Row Level Security right for the admin CRUD flow took a few iterations — policies had to allow authenticated admin writes while keeping public reads open, without accidentally exposing draft content.",
+          "Getting Supabase's Row Level Security right for the admin CRUD flow took a few iterations. Policies had to allow authenticated admin writes while keeping public reads open, without accidentally exposing draft content.",
       },
       {
         title: "Server vs. client component boundaries",
-        description:
-          "App Router's split between server and client components meant carefully deciding which parts of the admin panel needed interactivity (forms, live previews) versus which could stay server-rendered for speed.",
+        description: "App Router's split between server and client components meant carefully deciding which parts of the admin panel needed interactivity (forms, live previews) versus which could stay server-rendered for speed.",
       },
     ],
     lessons: [
-      "Supabase RLS policies are worth designing on paper before writing any SQL — retrofitting them onto an existing schema is much harder.",
+      "Supabase RLS policies are worth designing on paper before writing any SQL. Retrofitting them onto an existing schema is much harder.",
       "App Router's server/client split forces better component boundaries than the old Pages Router did, even with the learning curve.",
     ],
   },
   {
     slug: "hospital-inpatient-disease-analysis",
-    title: "Hospital Inpatient Disease Analysis — RSUD Sukoharjo",
-    description:
-      "Time-series forecasting and clustering analysis on a decade of hospital inpatient records, delivered as a full data-analysis portfolio project.",
+    title: "Hospital Inpatient Disease Analysis (RSUD Sukoharjo)",
+    description: "Time-series forecasting and clustering analysis on a decade of hospital inpatient records, delivered as a full data-analysis portfolio project.",
     type: "Data",
     category: "Personal Project",
     tech: ["Python", "pandas", "statsmodels", "scikit-learn", "matplotlib", "seaborn"],
@@ -432,21 +423,19 @@ export const projects: Project[] = [
       },
       {
         title: "Choosing a forecasting model that respects seasonality",
-        description:
-          "Hospital admissions have strong yearly seasonality, so a plain ARIMA wasn't enough. Settled on a seasonal SARIMA order after comparing seasonal and non-seasonal fits against held-out months.",
+        description: "Hospital admissions have strong yearly seasonality, so a plain ARIMA wasn't enough. Settled on a seasonal SARIMA order after comparing seasonal and non-seasonal fits against held-out months.",
         code: "SARIMA(1,1,1)(1,1,1,12)",
       },
     ],
     lessons: [
-      "Data cleaning and standardization took longer than the modeling itself — worth budgeting for up front on any real-world dataset.",
+      "Data cleaning and standardization took longer than the modeling itself, worth budgeting for up front on any real-world dataset.",
       "SARIMA's seasonal terms made a measurable difference over plain ARIMA once admissions showed a clear yearly cycle.",
     ],
   },
   {
     slug: "sukoharjo-economic-housing-affordability",
     title: "Sukoharjo Regional Economic & Housing Affordability Analysis",
-    description:
-      "Regional economic analysis combining multiple BPS open datasets to assess housing affordability against local income and employment patterns.",
+    description: "Regional economic analysis combining multiple BPS open datasets to assess housing affordability against local income and employment patterns.",
     type: "Data",
     category: "Personal Project",
     tech: ["Python", "pandas", "Plotly", "Streamlit", "BPS Open Data"],
@@ -456,7 +445,7 @@ export const projects: Project[] = [
     ],
     coverImage: "/projects/sukoharjo-economic-housing-affordability.png",
     overview:
-      "A regional economic analysis for Sukoharjo Regency built on 4 separate BPS (Statistics Indonesia) open datasets — regional GDP, wages, employment by sector, and household expenditure — merged into one pipeline to run a housing affordability stress test against local income and employment patterns, then packaged as an interactive Streamlit dashboard.",
+      "A regional economic analysis for Sukoharjo Regency built on 4 separate BPS (Statistics Indonesia) open datasets (regional GDP, wages, employment by sector, and household expenditure), merged into one pipeline to run a housing affordability stress test against local income and employment patterns, then packaged as an interactive Streamlit dashboard.",
     techDetails: [
       { name: "Python", description: "Core analysis pipeline." },
       { name: "pandas", description: "Merging and cleaning 4 separate BPS datasets across 2019–2023." },
@@ -477,20 +466,18 @@ export const projects: Project[] = [
       },
       {
         title: "Defining a meaningful affordability threshold",
-        description:
-          "Housing affordability metrics vary by methodology. Settled on a debt-to-income framing to make the 47% constraint figure directly interpretable for a non-technical audience.",
+        description: "Housing affordability metrics vary by methodology. Settled on a debt-to-income framing to make the 47% constraint figure directly interpretable for a non-technical audience.",
       },
     ],
     lessons: [
-      "Public statistics datasets (BPS) are individually clean but rarely designed to be merged with each other — schema reconciliation is its own task.",
+      "Public statistics datasets (BPS) are individually clean but rarely designed to be merged with each other. Schema reconciliation is its own task.",
       "A debt-to-income framing communicated the affordability finding far more clearly to non-technical readers than a raw price index would have.",
     ],
   },
   {
     slug: "personal-portfolio-v1",
     title: "Personal Portfolio Website (v1)",
-    description:
-      "My first personal portfolio — a dual Developer/Designer site built with React, with dedicated case-study pages for earlier freelance and campus projects.",
+    description: "My first personal portfolio: a dual Developer/Designer site built with React, with dedicated case-study pages for earlier freelance and campus projects.",
     type: "Web",
     category: "Personal Project",
     tech: ["React.js", "Tailwind CSS", "Framer Motion", "React Router"],
@@ -502,7 +489,7 @@ export const projects: Project[] = [
     coverImage: "/projects/personal-portfolio-v1.png",
     sourceCodeUrl: "https://github.com/baguzbw/PortofolioWeb",
     overview:
-      "My first personal portfolio, built with React, Tailwind CSS, and Framer Motion. It split into separate Developer and Designer views, each showcasing project cards that linked to dedicated case-study pages — including Kampung Batik (a promotional site for a batik-producing village), an information site for the ICARELI conference, and an OLT (Optical Line Termination) monitoring dashboard — each broken down into Features, Research, and Result sections. Retired in favor of the current Next.js rebuild.",
+      "My first personal portfolio, built with React, Tailwind CSS, and Framer Motion. It split into separate Developer and Designer views, each showcasing project cards that linked to dedicated case-study pages, including Kampung Batik (a promotional site for a batik-producing village), an information site for the ICARELI conference, and an OLT (Optical Line Termination) monitoring dashboard, each broken down into Features, Research, and Result sections. Retired in favor of the current Next.js rebuild.",
     techDetails: [
       { name: "React.js", description: "Core UI library for the whole site." },
       { name: "React Router", description: "Client-side routing across the Developer, Designer, About, and case-study pages." },
@@ -512,37 +499,32 @@ export const projects: Project[] = [
     features: [
       {
         title: "Dual Developer / Designer personas",
-        description:
-          "Rather than one flat homepage, the site split into a Developer view and a Designer view, each with its own intro copy and project cards — reflecting a combined frontend + UI/UX skill set.",
+        description: "Rather than one flat homepage, the site split into a Developer view and a Designer view, each with its own intro copy and project cards, reflecting a combined frontend + UI/UX skill set.",
       },
       {
         title: "Per-project case-study pages",
-        description:
-          "Featured projects (Kampung Batik, ICARELI, OLT Monitoring) each got their own route with a consistent Features / Research / Result structure, rather than just a card and a link.",
+        description: "Featured projects (Kampung Batik, ICARELI, OLT Monitoring) each got their own route with a consistent Features / Research / Result structure, rather than just a card and a link.",
       },
       {
         title: "Honest incomplete states",
-        description:
-          "The OLT Monitoring project card intentionally showed a \"case study not ready yet\" state on hover instead of a broken or fake link, for a project whose write-up wasn't finished.",
+        description: 'The OLT Monitoring project card intentionally showed a "case study not ready yet" state on hover instead of a broken or fake link, for a project whose write-up wasn\'t finished.',
       },
     ],
     challenges: [
       {
         title: "Structuring a two-persona portfolio without it feeling like two disconnected sites",
-        description:
-          "Splitting Developer and Designer into separate routes risked feeling fragmented. Keeping shared navigation, typography, and motion consistent across both was what held it together as one site.",
+        description: "Splitting Developer and Designer into separate routes risked feeling fragmented. Keeping shared navigation, typography, and motion consistent across both was what held it together as one site.",
       },
     ],
     lessons: [
-      "A portfolio is itself a product worth its own information architecture — separate personas and a repeatable case-study template, not just a flat project list.",
+      "A portfolio is itself a product worth its own information architecture: separate personas and a repeatable case-study template, not just a flat project list.",
       "The Plus Jakarta Sans typography and motion-forward feel from this version carried directly into the current portfolio rebuild.",
     ],
   },
   {
     slug: "kampung-batik-joglo-bale-agung-cendana",
     title: "Kampung Batik Joglo Bale Agung Cendana",
-    description:
-      "Campus PBL project giving a batik-producing village its first web presence — articles on its cultural heritage plus a product and motif gallery.",
+    description: "Campus PBL project giving a batik-producing village its first web presence: articles on its cultural heritage plus a product and motif gallery.",
     type: "Web",
     category: "Internship",
     tech: ["React.js", "Laravel", "MySQL"],
@@ -555,9 +537,9 @@ export const projects: Project[] = [
     sourceCodeUrl: "https://github.com/baguzbw/pblkampungbatik",
     liveDemoUrl: "https://joglobaleagungcendana.id/",
     overview:
-      "A Project Based Learning collaboration (semester 4, with Life Media) to give Kampung Batik Joglo Bale Agung Cendana — a batik-producing village — its first web presence. The site needed to promote the village's cultural heritage, its distinctive batik motifs, and its products to an audience that previously had no way to discover them online.",
+      "A Project Based Learning collaboration (semester 4, with Life Media) to give Kampung Batik Joglo Bale Agung Cendana (a batik-producing village) its first web presence. The site needed to promote the village's cultural heritage, its distinctive batik motifs, and its products to an audience that previously had no way to discover them online.",
     techDetails: [
-      { name: "React.js", description: "Frontend framework — learned specifically for this project, coming from a mostly Laravel/PHP background." },
+      { name: "React.js", description: "Frontend framework, learned specifically for this project, coming from a mostly Laravel/PHP background." },
       { name: "Laravel", description: "Backend/API layer." },
       { name: "MySQL", description: "Database." },
     ],
@@ -574,8 +556,7 @@ export const projects: Project[] = [
     challenges: [
       {
         title: "Learning React mid-project",
-        description:
-          "Coming from a mostly Laravel/PHP background, this was the first project using React — spent time upfront researching how its component structure differs from Laravel's more prescriptive MVC layout.",
+        description: "Coming from a mostly Laravel/PHP background, this was the first project using React. Spent time upfront researching how its component structure differs from Laravel's more prescriptive MVC layout.",
       },
       {
         title: "Weak reference sites to design against",
@@ -584,15 +565,14 @@ export const projects: Project[] = [
       },
     ],
     lessons: [
-      "First large team project — learned the cost of skipping upfront planning (scope, deadlines, database needs) in favor of just starting to build.",
+      "First large team project: learned the cost of skipping upfront planning (scope, deadlines, database needs) in favor of just starting to build.",
       "Feedback is useful but needs filtering against the project's original goals, or scope creep quietly resets the timeline.",
     ],
   },
   {
     slug: "icareli-conference-website",
     title: "ICARELI Conference Website",
-    description:
-      "Website for UNS's International Conferences on Animal Research for Eco-Friendly Livestock Industry — speakers, schedule, and multi-year conference data.",
+    description: "Website for UNS's International Conferences on Animal Research for Eco-Friendly Livestock Industry: speakers, schedule, and multi-year conference data.",
     type: "Web",
     category: "Freelance",
     tech: ["React.js", "Laravel", "MySQL"],
@@ -605,7 +585,7 @@ export const projects: Project[] = [
     sourceCodeUrl: "https://github.com/baguzbw/IcareliProject",
     liveDemoUrl: "https://icareli.id/",
     overview:
-      "A website for ICARELI (International Conferences on Animal Research for Eco-Friendly Livestock Industry), a biennial conference hosted by the Faculty of Agriculture at Universitas Sebelas Maret. It previously ran on two separate websites merged awkwardly into one, causing bloated data. This rebuild needed to support speaker info, schedules, committees, and submission guidelines — and, added mid-project, multiple conference years on one consistent design.",
+      "A website for ICARELI (International Conferences on Animal Research for Eco-Friendly Livestock Industry), a biennial conference hosted by the Faculty of Agriculture at Universitas Sebelas Maret. It previously ran on two separate websites merged awkwardly into one, causing bloated data. This rebuild needed to support speaker info, schedules, committees, and submission guidelines, plus, added mid-project, multiple conference years on one consistent design.",
     techDetails: [
       { name: "React.js", description: "Frontend, with React Context introduced partway through to handle multi-year conference data cleanly." },
       { name: "Laravel", description: "Backend." },
@@ -614,8 +594,7 @@ export const projects: Project[] = [
     features: [
       {
         title: "Multiple Data (multi-year conferences)",
-        description:
-          "Switching between conference years (e.g. 2021 vs 2023) swaps all related data without changing the underlying design — added after the initial single-year version was already built.",
+        description: "Switching between conference years (e.g. 2021 vs 2023) swaps all related data without changing the underlying design. Added after the initial single-year version was already built.",
       },
       {
         title: "Conference Information Hub",
@@ -626,24 +605,22 @@ export const projects: Project[] = [
       {
         title: "A late-added requirement to support multiple conference years",
         description:
-          "The site was originally scoped and built for a single year of conference data. Partway through, the Faculty asked for the 2021 conference to be supported alongside 2023 without a redesign — solved by switching from React Props to React Context so the same components could serve either year's data.",
+          "The site was originally scoped and built for a single year of conference data. Partway through, the Faculty asked for the 2021 conference to be supported alongside 2023 without a redesign. Solved by switching from React Props to React Context so the same components could serve either year's data.",
       },
       {
         title: "A 1-month deadline with a real, fixed event date",
-        description:
-          "Working directly with the Faculty of Agriculture meant revisions had to turn around fast to be ready for the actual conference date, not a flexible academic deadline.",
+        description: "Working directly with the Faculty of Agriculture meant revisions had to turn around fast to be ready for the actual conference date, not a flexible academic deadline.",
       },
     ],
     lessons: [
-      "React Context is worth the extra complexity on larger apps needing shared state across many components — React Props alone doesn't scale as cleanly.",
-      "Doing at least some upfront research under a tight deadline still beats skipping straight to building — confusion mid-build cost more time than the research would have.",
+      "React Context is worth the extra complexity on larger apps needing shared state across many components; React Props alone doesn't scale as cleanly.",
+      "Doing at least some upfront research under a tight deadline still beats skipping straight to building. Confusion mid-build cost more time than the research would have.",
     ],
   },
   {
     slug: "e-library-ui-ux-design",
-    title: "E-Library — Self-Service Library System (UI/UX Design)",
-    description:
-      "A UI/UX design case study for a school library self-service system — book borrowing and return via scanning, designed in Figma for a Human-Computer Interaction course.",
+    title: "E-Library: Self-Service Library System (UI/UX Design)",
+    description: "A UI/UX design case study for a school library self-service system: book borrowing and return via scanning, designed in Figma for a Human-Computer Interaction course.",
     type: "Design",
     category: "Personal Project",
     tech: ["Figma"],
@@ -656,9 +633,7 @@ export const projects: Project[] = [
     liveDemoUrl: "https://www.behance.net/gallery/176725013/E-Library",
     overview:
       "A UI/UX design case study for a self-service school library system, completed in one week for a Human-Computer Interaction course. The brief called for a self-service borrowing and return flow using book scanning, designed to reduce queue bottlenecks at the library counter.",
-    techDetails: [
-      { name: "Figma", description: "Full interface design, prototyping, and the published case-study file." },
-    ],
+    techDetails: [{ name: "Figma", description: "Full interface design, prototyping, and the published case-study file." }],
     features: [
       {
         title: "Self-Service Borrow/Return Flow",
@@ -677,13 +652,64 @@ export const projects: Project[] = [
       },
       {
         title: "An incomplete project brief",
-        description:
-          "The initial brief read as just a borrow/return system. Presenting the design surfaced a missing requirement — attendance/check-in tracking for people entering the library — that hadn't been scoped at all.",
+        description: "The initial brief read as just a borrow/return system. Presenting the design surfaced a missing requirement (attendance/check-in tracking for people entering the library) that hadn't been scoped at all.",
       },
     ],
     lessons: [
-      "Figma turned out to be a genuinely good daily design tool, not just something for web mockups — lighter and cleaner than Photoshop/Illustrator for this kind of interface work.",
-      "A vague project brief costs more time later than it saves early — an incomplete brief here meant reworking the design after it had already been presented.",
+      "Figma turned out to be a genuinely good daily design tool, not just something for web mockups, lighter and cleaner than Photoshop/Illustrator for this kind of interface work.",
+      "A vague project brief costs more time later than it saves early: an incomplete brief here meant reworking the design after it had already been presented.",
+    ],
+  },
+  {
+    slug: "olt-battery-monitoring-dashboard",
+    title: "OLT Battery Monitoring Dashboard",
+    description: "Real-time monitoring dashboard for OLT (Optical Line Termination) backup batteries: live voltage, current, power, and frequency tracking with a map of device locations.",
+    type: "Web",
+    category: "Internship",
+    tech: ["React.js", "Tailwind CSS", "Leaflet", "Recharts"],
+    highlights: [
+      "Live voltage, current, wattage, and frequency monitoring per device, each with a real-time area chart polling every second.",
+      "Interactive map of device locations with draggable-marker coordinate picking for registering new devices.",
+      "Role-gated admin controls: device create/edit/delete and API key visibility restricted to admin accounts via cookie-based auth.",
+    ],
+    coverImage: "/projects/olt-battery-monitoring-dashboard.png",
+    overview:
+      "A real-time monitoring dashboard for OLT (Optical Line Termination) backup power systems: tracking voltage, current, wattage, and frequency for battery units at remote network sites, with a live map of device locations and full device/admin management.",
+    techDetails: [
+      { name: "React.js", description: "Core frontend, with React Router across dashboard, device, and sensor-detail routes." },
+      { name: "Tailwind CSS", description: "Styling throughout, in a Poppins-based type system." },
+      { name: "Leaflet", description: "Interactive device-location map, including a draggable-marker picker for setting a new device's coordinates." },
+      { name: "Recharts", description: "Live area charts for voltage, current, wattage, and frequency history per device." },
+    ],
+    features: [
+      {
+        title: "Live Sensor Monitoring",
+        description: "Per-device voltage, current, power, and frequency, each on its own live-updating area chart, polling the monitoring API every second.",
+      },
+      {
+        title: "Device Map & Management",
+        description: "An interactive map plots every device by location; admins can create, edit, and delete devices, including dragging a marker to set new coordinates, plus a show/hide toggle for each device's API key.",
+      },
+      {
+        title: "Role-Based Access",
+        description: "Cookie-based auth with an admin role gate: only admins see device edit/delete/create controls; other authenticated users get read-only monitoring.",
+      },
+    ],
+    challenges: [
+      {
+        title: "Polling a live API without overloading it",
+        description:
+          "Sensor readings needed to feel real-time, but polling too aggressively risked overloading the monitoring API. Settled on a 1-second interval scoped per open sensor view rather than one global poll, balancing responsiveness against load.",
+      },
+      {
+        title: "Making raw sensor values mean something",
+        description:
+          "Raw voltage/current readings alone don't say whether a battery is healthy. The UI needed to pair live values with each battery's configured nominal/top/low voltage thresholds so the numbers were actually interpretable at a glance.",
+      },
+    ],
+    lessons: [
+      "Real-time dashboards live or die on how polling is handled: a naive interval per component is simple but needs disciplined cleanup (via useEffect's return function) or it leaks across route changes.",
+      "Pairing raw sensor data with reference thresholds (nominal/top/low voltage) turned a wall of numbers into something a non-technical person could actually read.",
     ],
   },
 ];

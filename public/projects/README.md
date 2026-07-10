@@ -10,6 +10,7 @@ project card and the detail page already point at these paths:
 - `kampung-batik.png`
 - `icareli-conference-website.png`
 - `e-library-ui-ux-design.png`
+- `olt-battery-monitoring-dashboard.png`
 
 Until a file exists, that project shows a branded placeholder instead of a
 broken image — nothing breaks if you leave one out.

@@ -7,6 +7,8 @@ import { MobileNav } from "@/components/MobileNav";
 import { CustomCursor } from "@/components/CustomCursor";
 import { PageTransition } from "@/components/PageTransition";
 import { BackToTop } from "@/components/BackToTop";
+import { CommandPaletteProvider } from "@/components/CommandPaletteProvider";
+import { CommandPalette } from "@/components/CommandPalette";
 import { profile } from "@/data/profile";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -32,21 +34,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <body className={`${jakarta.variable} ${signature.variable} font-sans antialiased`}>
         <ThemeProvider>
-          <CustomCursor />
-          <BackToTop />
-          <div className="mx-auto flex min-h-screen max-w-[1280px]">
-            <div className="sticky top-0 hidden h-screen w-[336px] flex-shrink-0 md:block">
-              <Sidebar />
+          <CommandPaletteProvider>
+            <CustomCursor />
+            <BackToTop />
+            <CommandPalette />
+            <div className="mx-auto flex min-h-screen max-w-[1280px]">
+              <div className="sticky top-0 hidden h-screen w-[336px] flex-shrink-0 md:block">
+                <Sidebar />
+              </div>
+              <div className="min-w-0 flex-1">
+                <MobileNav />
+                <main className="px-5 py-10 md:px-6">
+                  <div className="mx-auto max-w-5xl">
+                    <PageTransition>{children}</PageTransition>
+                  </div>
+                </main>
+              </div>
             </div>
-            <div className="min-w-0 flex-1">
-              <MobileNav />
-              <main className="px-5 py-10 md:px-6">
-                <div className="mx-auto max-w-5xl">
-                  <PageTransition>{children}</PageTransition>
-                </div>
-              </main>
-            </div>
-          </div>
+          </CommandPaletteProvider>
         </ThemeProvider>
       </body>
     </html>

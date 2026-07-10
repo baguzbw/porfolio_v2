@@ -49,6 +49,8 @@ export const techIcons: Record<string, TechEntry> = {
   Linux: { kind: "brand", path: paths.LinuxPath, color: "#FCC624" },
   "Framer Motion": { kind: "brand", path: paths.FramerMotionPath, color: "#0055FF" },
   "React Router": { kind: "brand", path: paths.ReactRouterPath, color: "#CA4245" },
+  Leaflet: { kind: "brand", path: paths.LeafletPath, color: "#199900" },
+  Recharts: { kind: "lucide", icon: BarChart3, color: "#8884D8" },
 };
 
 export function getTechIcon(name: string): TechEntry {

@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-/** Appends an alpha channel to a 6-digit hex color, e.g. hexAlpha("#3B82F6", "1A") -> "#3B82F61A" */
+/** Appends an alpha channel to a 6-digit hex color, e.g. hexAlpha("#6366F1", "1A") -> "#6366F11A" */
 export function hexAlpha(hex: string, alpha: string) {
   return `${hex}${alpha}`;
 }

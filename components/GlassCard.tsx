@@ -54,7 +54,7 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(function Gla
         className="pointer-events-none absolute inset-0 z-10 transition-opacity duration-300"
         style={{
           opacity: hovering ? 1 : 0,
-          background: `radial-gradient(480px circle at ${pos.x}% ${pos.y}%, rgba(59,130,246,0.16), rgba(59,130,246,0.05) 35%, transparent 60%)`,
+          background: `radial-gradient(480px circle at ${pos.x}% ${pos.y}%, rgb(var(--accent-rgb) / 0.16), rgb(var(--accent-rgb) / 0.05) 35%, transparent 60%)`,
         }}
       />
       <div
