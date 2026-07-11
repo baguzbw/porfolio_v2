@@ -4,12 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { Home, User, Award, FolderKanban, Github, Linkedin, Mail, Globe, ChevronRight, Search } from "lucide-react";
+import { Home, User, Award, FolderKanban, ChevronRight, Search, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { profile } from "@/data/profile";
 import { ThemeToggle } from "./ThemeToggle";
 import { RotatingStatus } from "./RotatingStatus";
-import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { useCommandPalette } from "./CommandPaletteProvider";
 
@@ -18,13 +17,7 @@ const navItems = [
   { href: "/about", label: "About", icon: User },
   { href: "/achievements", label: "Achievements", icon: Award },
   { href: "/projects", label: "Projects", icon: FolderKanban },
-];
-
-const socials = [
-  { href: profile.links.github, icon: Github, label: "GitHub" },
-  { href: profile.links.linkedin, icon: Linkedin, label: "LinkedIn" },
-  { href: profile.links.portfolio, icon: Globe, label: "Portfolio" },
-  { href: `mailto:${profile.email}`, icon: Mail, label: "Email" },
+  { href: "/contact", label: "Contact", icon: Send },
 ];
 
 const initials = profile.name
@@ -66,34 +59,20 @@ export function Sidebar() {
             </span>
             <RotatingStatus />
           </Badge>
-
-          <div className="mt-7 flex items-center gap-2.5">
-            {socials.map(({ href, icon: Icon, label }) => (
-              <Button
-                key={label}
-                variant="outline"
-                size="icon"
-                className="h-10 w-10 rounded-full transition-transform duration-200 hover:scale-110 hover:border-accent-500 hover:text-accent-500"
-                asChild
-              >
-                <a href={href} target="_blank" rel="noopener noreferrer" aria-label={label}>
-                  <Icon size={16} />
-                </a>
-              </Button>
-            ))}
-            <ThemeToggle />
-          </div>
         </div>
 
-        <button
-          type="button"
-          onClick={() => setCommandPaletteOpen(true)}
-          className="mt-8 flex w-full items-center gap-2.5 rounded-lg border border-border px-3.5 py-2.5 text-sm text-muted-foreground transition-colors duration-200 hover:border-accent-500 hover:text-accent-500"
-        >
-          <Search size={15} />
-          <span className="flex-1 text-left">Search</span>
-          <kbd className="rounded border border-border px-1.5 py-0.5 text-[10px]">Ctrl K</kbd>
-        </button>
+        <div className="mt-8 flex w-full items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setCommandPaletteOpen(true)}
+            className="flex h-10 flex-1 items-center gap-2.5 rounded-lg border border-border px-3.5 text-sm text-muted-foreground transition-colors duration-200 hover:border-accent-500 hover:text-accent-500"
+          >
+            <Search size={15} />
+            <span className="flex-1 text-left">Search</span>
+            <kbd className="rounded border border-border px-1.5 py-0.5 text-[10px]">Ctrl K</kbd>
+          </button>
+          <ThemeToggle />
+        </div>
 
         <nav className="mt-5 flex flex-col gap-2">
           {navItems.map(({ href, label, icon: Icon }, i) => {

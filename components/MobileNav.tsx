@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, Home, User, Award, FolderKanban } from "lucide-react";
+import { Menu, Home, User, Award, FolderKanban, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { profile } from "@/data/profile";
 import { ThemeToggle } from "./ThemeToggle";
@@ -15,6 +15,7 @@ const navItems = [
   { href: "/about", label: "About", icon: User },
   { href: "/achievements", label: "Achievements", icon: Award },
   { href: "/projects", label: "Projects", icon: FolderKanban },
+  { href: "/contact", label: "Contact", icon: Send },
 ];
 
 export function MobileNav() {

@@ -1,7 +1,9 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Award, BookOpen, Trophy, ArrowUpRight } from "lucide-react";
 import type { Achievement } from "@/data/profile";
+import { cn } from "@/lib/utils";
 import { CardContent } from "./ui/card";
 import { GlassCard } from "./GlassCard";
 import { Badge } from "./ui/badge";
@@ -16,6 +18,13 @@ const typeIcon = {
 
 export function AchievementCard({ achievement }: { achievement: Achievement }) {
   const Icon = typeIcon[achievement.type];
+  const [isLandscape, setIsLandscape] = useState(false);
+
+  useEffect(() => {
+    const img = new window.Image();
+    img.src = achievement.image;
+    img.onload = () => setIsLandscape(img.naturalWidth > img.naturalHeight);
+  }, [achievement.image]);
 
   return (
     <Dialog>
@@ -53,9 +62,25 @@ export function AchievementCard({ achievement }: { achievement: Achievement }) {
         </GlassCard>
       </DialogTrigger>
 
-      <DialogContent className="grid max-h-[85vh] w-[94vw] max-w-3xl grid-rows-[auto_1fr] gap-0 overflow-y-auto p-0 sm:grid-cols-[1.4fr_1fr] sm:grid-rows-1 sm:overflow-hidden">
-        <div className="relative h-56 w-full bg-muted sm:h-full">
-          <CertImage achievement={achievement} iconSize={40} className="h-full" />
+      <DialogContent
+        className={cn(
+          "grid max-h-[85vh] w-[94vw] gap-0 overflow-y-auto p-0",
+          isLandscape
+            ? "max-w-2xl grid-rows-[auto_1fr]"
+            : "max-w-3xl grid-rows-[auto_1fr] sm:grid-cols-[1.4fr_1fr] sm:grid-rows-1 sm:overflow-hidden"
+        )}
+      >
+        <div
+          className={cn(
+            "relative w-full bg-muted",
+            isLandscape ? "aspect-video flex-shrink-0" : "h-56 sm:h-full"
+          )}
+        >
+          <CertImage
+            achievement={achievement}
+            iconSize={40}
+            className={isLandscape ? "h-full object-contain p-4" : "h-full"}
+          />
         </div>
 
         <div className="flex flex-col gap-5 overflow-y-auto p-6">

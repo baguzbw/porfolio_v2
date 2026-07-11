@@ -9,3 +9,10 @@ export function cn(...inputs: ClassValue[]) {
 export function hexAlpha(hex: string, alpha: string) {
   return `${hex}${alpha}`;
 }
+
+/** Converts a 6-digit hex color to an "r, g, b" triplet, e.g. hexToRgb("#F97316") -> "249, 115, 22" */
+export function hexToRgb(hex: string) {
+  const clean = hex.replace("#", "");
+  const value = parseInt(clean, 16);
+  return `${(value >> 16) & 255}, ${(value >> 8) & 255}, ${value & 255}`;
+}

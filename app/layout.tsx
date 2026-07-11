@@ -7,6 +7,7 @@ import { MobileNav } from "@/components/MobileNav";
 import { CustomCursor } from "@/components/CustomCursor";
 import { PageTransition } from "@/components/PageTransition";
 import { BackToTop } from "@/components/BackToTop";
+import { ScrollProgress } from "@/components/ScrollProgress";
 import { CommandPaletteProvider } from "@/components/CommandPaletteProvider";
 import { CommandPalette } from "@/components/CommandPalette";
 import { profile } from "@/data/profile";
@@ -25,8 +26,21 @@ const signature = Yellowtail({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(profile.links.portfolio),
   title: `${profile.name} — ${profile.role}`,
   description: profile.tagline,
+  openGraph: {
+    title: `${profile.name} — ${profile.role}`,
+    description: profile.tagline,
+    url: profile.links.portfolio,
+    siteName: profile.name,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${profile.name} — ${profile.role}`,
+    description: profile.tagline,
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -35,6 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${jakarta.variable} ${signature.variable} font-sans antialiased`}>
         <ThemeProvider>
           <CommandPaletteProvider>
+            <ScrollProgress />
             <CustomCursor />
             <BackToTop />
             <CommandPalette />
