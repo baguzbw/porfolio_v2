@@ -79,7 +79,7 @@ export default function AchievementsPage() {
             className="h-full animate-in fade-in-0 slide-in-from-bottom-2 duration-300 ease-out"
             style={{ animationDelay: `${Math.min(i * 30, 300)}ms`, animationFillMode: "backwards" }}
           >
-            <AchievementCard achievement={a} />
+            <AchievementCard achievement={a} priority={i < 3} />
           </div>
         ))}
       </div>

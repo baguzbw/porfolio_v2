@@ -198,7 +198,7 @@ export const skills: SkillCategory[] = [
   },
   {
     label: "Mobile",
-    skills: ["Android SDK", "Kotlin", "Jetpack Compose", "ML Kit OCR", "AlarmManager", "App Widgets", "Gradle", "JUnit"],
+    skills: ["Android SDK", "Kotlin", "Jetpack Compose", "ML Kit OCR", "Gradle", "JUnit"],
   },
   {
     label: "Bots & Automation",
@@ -323,7 +323,7 @@ export const achievements: Achievement[] = [
     issuer: "SoloLearn",
     type: "Course",
     category: "Backend",
-    image: "/certificates/sololearn-sql.png",
+    image: "/certificates/sololearn-sql.jpg",
   },
 ];
 

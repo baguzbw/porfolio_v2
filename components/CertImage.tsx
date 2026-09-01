@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Award, BookOpen, Trophy } from "lucide-react";
 import type { Achievement } from "@/data/profile";
 import { cn } from "@/lib/utils";
@@ -15,12 +16,23 @@ export function CertImage({
   achievement,
   className,
   iconSize = 32,
+  /** Viewport-relative rendered width, so next/image requests a right-sized file instead of the full 1400px original. */
+  sizes = "100vw",
+  /** Set on the first few above-the-fold cards; everything else loads lazily. */
+  priority = false,
+  quality = 70,
+  onNaturalSize,
 }: {
   achievement: Achievement;
   className?: string;
   iconSize?: number;
+  sizes?: string;
+  priority?: boolean;
+  quality?: number;
+  onNaturalSize?: (width: number, height: number) => void;
 }) {
   const [error, setError] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const Icon = typeIcon[achievement.type];
 
   if (error) {
@@ -40,12 +52,25 @@ export function CertImage({
   }
 
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
+    <Image
       src={achievement.image}
       alt={`${achievement.title} certificate`}
-      className={cn("h-full w-full object-cover", className)}
+      fill
+      sizes={sizes}
+      priority={priority}
+      quality={quality}
+      // The parent already paints bg-muted, so fading in reads as a skeleton filling rather than a pop.
+      className={cn(
+        "object-cover transition-opacity duration-300",
+        loaded ? "opacity-100" : "opacity-0",
+        className
+      )}
       onError={() => setError(true)}
+      onLoad={(e) => {
+        setLoaded(true);
+        const img = e.currentTarget;
+        onNaturalSize?.(img.naturalWidth, img.naturalHeight);
+      }}
     />
   );
 }

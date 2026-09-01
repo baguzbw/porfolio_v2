@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Award, BookOpen, Trophy, ArrowUpRight } from "lucide-react";
 import type { Achievement } from "@/data/profile";
 import { cn } from "@/lib/utils";
@@ -16,15 +16,18 @@ const typeIcon = {
   Competition: Trophy,
 };
 
-export function AchievementCard({ achievement }: { achievement: Achievement }) {
+export function AchievementCard({
+  achievement,
+  priority = false,
+}: {
+  achievement: Achievement;
+  /** Above-the-fold cards load eagerly; the rest stay lazy. */
+  priority?: boolean;
+}) {
   const Icon = typeIcon[achievement.type];
+  // Orientation comes from the card image once it lands, rather than a second
+  // full-size download per card just to read naturalWidth.
   const [isLandscape, setIsLandscape] = useState(false);
-
-  useEffect(() => {
-    const img = new window.Image();
-    img.src = achievement.image;
-    img.onload = () => setIsLandscape(img.naturalWidth > img.naturalHeight);
-  }, [achievement.image]);
 
   return (
     <Dialog>
@@ -34,7 +37,10 @@ export function AchievementCard({ achievement }: { achievement: Achievement }) {
             <CertImage
               achievement={achievement}
               iconSize={26}
+              sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 92vw"
+              priority={priority}
               className="transition-transform duration-300 group-hover:scale-105"
+              onNaturalSize={(w, h) => setIsLandscape(w > h)}
             />
             <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-300 group-hover:bg-black/55 group-hover:opacity-100">
               <span className="flex items-center gap-1.5 text-sm font-medium text-white">
@@ -79,7 +85,9 @@ export function AchievementCard({ achievement }: { achievement: Achievement }) {
           <CertImage
             achievement={achievement}
             iconSize={40}
-            className={isLandscape ? "h-full object-contain p-4" : "h-full"}
+            sizes="(min-width: 640px) 60vw, 94vw"
+            quality={80}
+            className={isLandscape ? "object-contain p-4" : undefined}
           />
         </div>
 
