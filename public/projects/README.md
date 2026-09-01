@@ -5,6 +5,10 @@ project card and the detail page already point at these paths:
 
 - `notary-office-company-profile.png`
 - `hospital-inpatient-disease-analysis.png`
+- `telegram-google-calendar-bot.png`
+- `telegram-notion-expense-bot.png`
+- `verse-widget-android.png`
+- `shiftalarm-ocr-android.png`
 - `sukoharjo-economic-housing-affordability.png`
 - `personal-portfolio-v1.png`
 - `kampung-batik.png`

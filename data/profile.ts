@@ -186,7 +186,7 @@ export type SkillCategory = {
 export const skills: SkillCategory[] = [
   {
     label: "Languages",
-    skills: ["TypeScript", "JavaScript", "Go", "Python", "PHP", "Java", "HTML", "CSS"],
+    skills: ["TypeScript", "JavaScript", "Kotlin", "Go", "Python", "PHP", "Java", "HTML", "CSS"],
   },
   {
     label: "Frontend",
@@ -194,7 +194,15 @@ export const skills: SkillCategory[] = [
   },
   {
     label: "Backend & DB",
-    skills: ["Supabase", "PostgreSQL", "Oracle SQL", "MySQL", "Laravel", "RESTful API"],
+    skills: ["Node.js", "Supabase", "PostgreSQL", "Oracle SQL", "MySQL", "Laravel", "RESTful API", "Upstash Redis"],
+  },
+  {
+    label: "Mobile",
+    skills: ["Android SDK", "Kotlin", "Jetpack Compose", "ML Kit OCR", "AlarmManager", "App Widgets", "Gradle", "JUnit"],
+  },
+  {
+    label: "Bots & Automation",
+    skills: ["Telegram Bot API", "Google Calendar API", "Notion API", "Webhooks", "OAuth 2.0", "Serverless Functions", "Regex Parsing"],
   },
   {
     label: "Data & Analytics",
@@ -202,7 +210,7 @@ export const skills: SkillCategory[] = [
   },
   {
     label: "Tools & DevOps",
-    skills: ["Git", "GitHub", "Vercel", "Postman", "Jira", "Notion", "Linux"],
+    skills: ["Git", "GitHub", "Vercel", "Postman", "Jira", "Notion", "Linux", "Android Studio"],
   },
 ];
 
@@ -327,7 +335,7 @@ export type Project = {
   slug: string;
   title: string;
   description: string;
-  type: "Web" | "Data" | "Design";
+  type: "Web" | "Mobile" | "Automation" | "Data" | "Design";
   category: "Personal Project" | "Freelance" | "Internship";
   tech: string[];
   highlights: string[];
@@ -431,6 +439,291 @@ export const projects: Project[] = [
     lessons: [
       "Data cleaning and standardization took longer than the modeling itself, worth budgeting for up front on any real-world dataset.",
       "SARIMA's seasonal terms made a measurable difference over plain ARIMA once admissions showed a clear yearly cycle.",
+    ],
+  },
+  {
+    slug: "telegram-google-calendar-bot",
+    title: "Calendar Bot (Telegram → Google Calendar)",
+    description: "A personal Telegram bot that turns free-form Indonesian chat into Google Calendar events, parsed entirely offline with regex and dateparser (no LLM), routed to the right calendar by a self-learning category engine.",
+    type: "Automation",
+    category: "Personal Project",
+    tech: ["Python", "python-telegram-bot", "Google Calendar API", "OAuth 2.0", "dateparser", "Upstash Redis", "Vercel"],
+    highlights: [
+      "Built a rule-based Indonesian date/event parser (regex + dateparser) that extracts title, date, time range, and category from free-form chat with no LLM and no per-message API cost.",
+      "Routed events into 8 separate Google Calendars through an alias/keyword category engine, backed by rule-based self-learning: every correction made through the inline keyboard is stored word → category and reused on the next message.",
+      "Migrated the runtime from long-polling to Vercel serverless webhooks, moving all three pieces of local state (OAuth token, learned words, last event) into Upstash Redis behind a single dual-mode storage layer.",
+    ],
+    featured: true,
+    coverImage: "/projects/telegram-google-calendar-bot.png",
+    overview:
+      "A single-user Telegram bot that removes the friction of opening Google Calendar to add an event. Messages like \"dari 8 agustus 14:00 sampai 16:00 rapat kategori kerja\" or \"besok kumpul keluarga\" are parsed offline into a structured event, matched to one of eight destination calendars, shown back as a confirmation with inline correction buttons, and only then written to Google Calendar. The deliberate constraint was to build the entire natural-language layer without an LLM: everything is regex, dateparser, and dictionary lookups, so the bot runs free, offline-capable, and fully deterministic.",
+    techDetails: [
+      { name: "Python", description: "Core language for the parser, category engine, and Google Calendar integration." },
+      { name: "python-telegram-bot", description: "Command handlers, message handling, and the inline-keyboard confirmation/correction flow via callback queries." },
+      { name: "Google Calendar API", description: "Event creation and deletion across 8 calendars, scoped to calendar.events only." },
+      { name: "OAuth 2.0", description: "One-time desktop OAuth login, with automatic token refresh and the refreshed token persisted back to storage." },
+      { name: "dateparser", description: "Indonesian date parsing, wrapped in a normalization layer for relative words (besok/lusa), dotted times (jam 14.00), and month abbreviations it does not cover." },
+      { name: "Upstash Redis", description: "Serverless-safe state (OAuth token, learned categories, last created event) over the REST API, since Vercel functions have no persistent filesystem." },
+      { name: "Vercel", description: "Serverless webhook deployment so the bot runs 24/7 without a machine staying on." },
+    ],
+    features: [
+      {
+        title: "Natural-language event capture",
+        description: "Handles all-day events, timed events with a default duration, explicit start/end ranges, multi-day ranges, and relative dates (hari ini, besok, lusa, kemarin). Anything left after the keywords are stripped becomes the event title.",
+      },
+      {
+        title: "Category → calendar routing",
+        description: "Eight categories (Kuliah, Movie, Game, Football, Financial, Health, Important Activity, Activity), each with its own aliases, trigger keywords, emoji prefix, and destination calendar ID. Typing the category is optional: the bot guesses from the title when it is omitted.",
+      },
+      {
+        title: "Self-learning categories",
+        description: "Correcting a guess through the inline keyboard stores every meaningful word of that title against the chosen category, so the same wording is routed correctly next time. Pure word matching, no model, and the learned data never leaves the owner's own storage.",
+      },
+      {
+        title: "Confirm before save, and /undo after",
+        description: "Every event is previewed with correction buttons before it is written; /undo deletes the most recently created event straight from Google Calendar without opening the app.",
+      },
+      {
+        title: "Dual runtime",
+        description: "The same application object runs as long-polling locally for development and as a secret-verified webhook endpoint on Vercel in production.",
+      },
+    ],
+    challenges: [
+      {
+        title: "Parsing Indonesian dates without an LLM",
+        description:
+          "dateparser covers most Indonesian month names but not relative words like \"besok\"/\"lusa\", times written as \"jam 14.00\", or the \"ags\" abbreviation. The fix was a normalization pass that rewrites those into explicit, unambiguous forms (spelled-out month names rather than dd/mm) before dateparser ever sees the string.",
+        code: "besok kumpul keluarga → 2 september 2026 kumpul keluarga",
+      },
+      {
+        title: "Serverless has no persistent filesystem",
+        description:
+          "Moving to Vercel broke three assumptions at once: the OAuth token file, the learned-categories file, and the last-event file all lived on disk. Rather than scattering environment checks through the codebase, I introduced one storage module with load_json/save_json that transparently uses local files in development and Upstash Redis in production, so nothing above it had to change.",
+      },
+      {
+        title: "Keeping OAuth alive in a stateless function",
+        description: "A refreshed access token is worthless if it is discarded when the function exits, so the refresh path writes the new token back through the same storage layer, keeping the bot logged in indefinitely without a second manual OAuth run.",
+      },
+    ],
+    lessons: [
+      "A well-scoped rule-based parser beat reaching for an LLM here: it is free, deterministic, testable, and every wrong result points at a specific rule I can fix.",
+      "Abstracting persistence behind one tiny load/save interface turned the polling → serverless migration into a configuration change instead of a rewrite.",
+      "Letting the user correct a guess with one tap, and learning from that correction, proved more valuable than trying to make the initial guess smarter.",
+    ],
+  },
+  {
+    slug: "telegram-notion-expense-bot",
+    title: "Expense Bot (Telegram → Notion)",
+    description: "A Telegram bot that logs expenses into a Notion database from one-line Indonesian messages, parsing amount shorthand, payment method, category, and date with a dependency-free parser.",
+    type: "Automation",
+    category: "Personal Project",
+    tech: ["Node.js", "JavaScript", "Telegram Bot API", "Notion API", "Vercel"],
+    highlights: [
+      "Wrote a dependency-free parser for Indonesian expense messages covering amount shorthand (25.000 / 25rb / 25k / 1.5jt), payment keywords, hashtag categories, and both relative and explicit dates, pinned by a 13-case test suite run with npm test.",
+      "Mapped parsed messages onto a real Notion schema: title, number, date, a relation to the correct Account page, and a multi-select category across 12 predefined categories.",
+      "Deployed as a Vercel webhook hardened with Telegram's secret-token header, a chat ID allowlist, and an always-200 response so a failed write never triggers Telegram's retry loop.",
+    ],
+    coverImage: "/projects/telegram-notion-expense-bot.png",
+    overview:
+      "Expense tracking only works if logging an expense takes seconds. This bot cuts the loop down to one Telegram message: \"beli kopi 20rb bank\" becomes a fully formed row in a Notion Expenses database, with the amount normalized, the payment method resolved to a Notion relation, the category attached, and the date defaulted to today in WIB. The Telegram side is written directly against the HTTP API with fetch, so the only runtime dependency is the Notion client itself.",
+    techDetails: [
+      { name: "Node.js", description: "Runtime for both the local polling script and the Vercel serverless handler, sharing one handleUpdate function." },
+      { name: "JavaScript", description: "Dependency-free message parser plus its own assertion-based test runner." },
+      { name: "Telegram Bot API", description: "Called directly over HTTP with fetch (no SDK), including secret-token verification on the webhook endpoint." },
+      { name: "Notion API", description: "Page creation against an Expenses data source, writing title, number, date, account relation, and multi-select category properties." },
+      { name: "Vercel", description: "Serverless webhook hosting so the bot answers instantly without a process running on a laptop." },
+    ],
+    features: [
+      {
+        title: "One-line expense capture",
+        description: "Understands messages such as \"Aku membeli dimsum 25.000 cash\", \"Lunch 30k rekening #Eat\", or \"tanggal 10 juli beli sepatu 300rb bank\", stripping leading verbs to leave a clean expense name.",
+      },
+      {
+        title: "Indonesian amount and payment normalization",
+        description: "Thousand separators, rb/ribu/k/jt/juta shorthand, and payment keywords (cash, tunai, transfer, rekening, qris, debit) all normalize to the exact values the Notion schema expects, defaulting to Cash when unstated.",
+      },
+      {
+        title: "Notion relation and category writes",
+        description: "Payment method resolves to a related Account page rather than plain text, and hashtag categories map onto the 12 categories already defined in the database.",
+      },
+      {
+        title: "Webhook security",
+        description: "The endpoint verifies Telegram's x-telegram-bot-api-secret-token header and an allowlisted chat ID, so a leaked URL alone cannot write to the database.",
+      },
+    ],
+    challenges: [
+      {
+        title: "Ambiguity between amounts, quantities, and dates",
+        description:
+          "Real messages mix numbers freely: \"Whiskas 56pcs 290.000 bank\" contains a quantity, an amount, and no date, while \"2 hari lalu bayar parkir 5rb cash\" leads with a relative date. Ordering the extraction steps (date first, then amount, then payment, then whatever remains as the name) and pinning each case in the test suite is what made the parser trustworthy.",
+      },
+      {
+        title: "Timezone correctness for a WIB user on UTC infrastructure",
+        description: "Vercel functions run in UTC, so an expense logged at 09:00 WIB would land on the previous day. Dates are computed against a UTC+7 offset everywhere, including in the tests, so late-night entries file under the right day.",
+      },
+      {
+        title: "Failing safely against Telegram's retry behaviour",
+        description: "Telegram redelivers any update the webhook does not acknowledge, which would duplicate rows on a transient Notion error. The handler logs failures and still returns 200, trading a rare lost entry for never writing the same expense twice.",
+      },
+    ],
+    lessons: [
+      "A small parser deserves real tests: 13 cases covering messy real-world phrasing caught more regressions than any amount of manual retesting in the chat window.",
+      "Writing straight against the Telegram HTTP API kept the deployment tiny and made the webhook's behaviour, including its security headers, explicit instead of hidden inside a framework.",
+      "Designing around the existing Notion schema first (relations, multi-selects, formula-filled month/year fields) meant the bot slotted into a database already in daily use, instead of asking the database to change.",
+    ],
+  },
+  {
+    slug: "shiftalarm-ocr-android",
+    title: "ShiftAlarm (OCR Shift-Schedule Alarm App)",
+    description: "Android alarm app that reads a month of work-shift screenshots with on-device OCR and schedules every wake-up alarm at once, offline and without an API key.",
+    type: "Mobile",
+    category: "Personal Project",
+    tech: ["Kotlin", "Android SDK", "ML Kit OCR", "Jetpack Compose", "AlarmManager", "Gradle"],
+    highlights: [
+      "Turned a monthly chore into one action: share HRIS attendance screenshots into the app, and a whole month of exact alarms is scheduled at the configured offset before each shift, with Weekly Off days skipped automatically.",
+      "Wrote a layout-aware OCR parser that reconstructs the HRIS table from ML Kit bounding boxes, grouping text into day cells by vertical position and a left-column x-threshold, then inferring month and year across a year boundary.",
+      "Built the full alarm stack that has to survive the OS: setAlarmClock exact alarms, a foreground service looping the ringtone on the ALARM stream, a full-screen activity over the lockscreen, snooze/dismiss from the notification, and rescheduling after reboot.",
+    ],
+    featured: true,
+    coverImage: "/projects/shiftalarm-ocr-android.png",
+    overview:
+      "A shift worker gets next month's schedule as a screen in an HRIS app, and then has to set around twenty alarms by hand. ShiftAlarm removes that: share the attendance screenshots into the app, and ML Kit reads each date and clock-in time on-device, skips Weekly Off days and days already past, and schedules an exact alarm a configurable offset (default two hours) before every shift. It is also a complete standalone alarm app on its own, with manual alarms, per-alarm ringtone and vibration, a list/calendar view, and a warm Headspace-inspired interface in full light and dark themes.",
+    techDetails: [
+      { name: "Kotlin", description: "Whole app, roughly 2,000 lines across the alarm domain, OCR parser, scheduler, foreground service, and UI." },
+      { name: "ML Kit Text Recognition", description: "Bundled on-device OCR: works offline, needs no API key and no per-scan cost, and schedule screenshots never leave the phone." },
+      { name: "Android SDK", description: "AlarmManager exact alarms, foreground service, full-screen intent over the lockscreen, boot receiver, share-target intent filters for single and multiple images, RecyclerView list and week strip." },
+      { name: "Jetpack Compose", description: "Interop layer used for the animated empty-state mascot, drawn as metaballs on a Compose Canvas with physics-based spring animation." },
+      { name: "AlarmManager", description: "setAlarmClock with AlarmClockInfo for user-visible exact alarms, plus a full cancel-and-reschedule pass that keeps the scheduled IDs in sync with stored alarms." },
+      { name: "Gradle", description: "Kotlin DSL build with R8 minification, resource shrinking, and an arm64-only ABI filter, with an -PemuTest flag to restore all ABIs for emulator testing." },
+    ],
+    features: [
+      {
+        title: "Screenshot → a month of alarms",
+        description: "Share one or several attendance screenshots into the app; each date and clock-in time is read on-device, an offset dialog confirms how early to wake, and the alarms are scheduled in one pass. Re-scanning the next month overwrites alarms on the same dates instead of duplicating them.",
+      },
+      {
+        title: "Rules that match how schedules actually behave",
+        description: "Weekly Off days are skipped, days already past are skipped, and today's shift is skipped if its alarm time has gone by, with the number of skipped days reported after the scan.",
+      },
+      {
+        title: "A complete alarm app underneath",
+        description: "Manual add/edit/delete/toggle, swipe-to-delete with undo, per-alarm ringtone from the system picker and vibration, a 10-minute snooze, a five-second sound test, and a missed-alarm state that badges, dims, and groups past one-shot alarms.",
+      },
+      {
+        title: "List and calendar views",
+        description: "A pill switch between a flat time-ordered list and a swipeable seven-day strip with dots marking days that have alarms and the selected day's agenda below.",
+      },
+      {
+        title: "Alarms that ring even when the phone is locked",
+        description: "A foreground service plays the chosen ringtone looping on the ALARM stream, independent of notification sound settings, while a full-screen activity turns the screen on above the lockscreen with dismiss and snooze actions.",
+      },
+      {
+        title: "Designed, not just assembled",
+        description: "A Headspace-inspired warm orange and cream language with a shared radius and spacing scale in dimens.xml, complete light and dark palettes defined under the same names, staggered card entry, press-and-spring card feedback, distinct haptics per action, and a hand-drawn vector empty state.",
+      },
+    ],
+    challenges: [
+      {
+        title: "OCR returns text, not a table",
+        description:
+          "ML Kit gives lines with bounding boxes, not the row-and-column structure the HRIS screen visually has. The parser rebuilds it geometrically: lines starting left of 18% of the image width are treated as the date column, day numbers become cell anchors sorted by vertical position, and every other line is assigned to a cell by comparing its center-Y against the anchor tops.",
+        code: "leftLimit = imageWidth * 0.18",
+      },
+      {
+        title: "\"Office\" is not \"Off\"",
+        description: "A shift row reads like `D047 (09:00 - 17:00) (Office)`, so a naive substring check for \"off\" marks working days as days off. Matching on a word boundary (\\boff\\b|\\blibur\\b) fixed a bug that would have silently cancelled real alarms.",
+      },
+      {
+        title: "The screenshot rarely says what year it is",
+        description:
+          "Attendance screens show days and month names but often not the year, and a schedule can straddle December into January. The parser picks the dominant month from the date column, falls back to a header month/year when present, and infers the year by comparing month distance, shifting a year forward or back for a December-January crossing.",
+      },
+      {
+        title: "Modern Android actively fights background alarms",
+        description:
+          "Exact alarms, full-screen intents, foreground services, and post-reboot survival each need their own permission and their own API on recent versions. The app declares USE_EXACT_ALARM alongside SCHEDULE_EXACT_ALARM, checks at runtime and routes the user into Settings if it has been revoked, uses a special-use foreground service for the ringing state, and reschedules everything from storage on BOOT_COMPLETED.",
+      },
+      {
+        title: "Keeping scheduled alarms and stored alarms consistent",
+        description: "Editing, deleting, or rescanning can otherwise leave orphaned PendingIntents that ring for alarms the user already removed. Rescheduling cancels every previously scheduled ID first, then re-registers only enabled alarms still in the future, and persists the new ID set.",
+      },
+    ],
+    lessons: [
+      "On-device ML was the right call over a cloud OCR API: it is free, works offline, has no key to leak, and keeps personal schedule screenshots on the phone.",
+      "The hard part of OCR is not recognition but reconstructing structure from coordinates; the geometry pass around ML Kit is longer and more important than the ML Kit call itself.",
+      "Alarm code is judged on its worst day, not its normal one, so the effort went into the failure paths: reboots, revoked permissions, missed times, and duplicate scheduling.",
+      "Real usage exposes parser edge cases documentation never mentions, and \"Office\" matching \"Off\" is exactly the kind of bug that only a word-boundary regex and a real screenshot catch.",
+    ],
+  },
+  {
+    slug: "verse-widget-android",
+    title: "Verse Widget (Android Home-Screen Widget)",
+    description: "A native Android home-screen widget in Kotlin showing one deterministic daily verse or movie quote from a 452-entry pool, with mood tags, bilingual text, and tap-through pagination.",
+    type: "Mobile",
+    category: "Personal Project",
+    tech: ["Kotlin", "Android SDK", "App Widgets", "JUnit", "Gradle"],
+    highlights: [
+      "Built a native App Widget provider in Kotlin (minSdk 26, targetSdk 35) with no third-party libraries beyond AndroidX core and appcompat.",
+      "Designed a deterministic xorshift picker seeded on epoch day, shuffle count, and mood tag, so the same entry shows all day across every redraw, changes at midnight, and is guaranteed to differ after a shuffle.",
+      "Drove refreshes with AlarmManager scheduled to the next content boundary (04:00/10:00/15:00/18:00 and just past midnight) instead of polling, and cached the parsed 452-entry pool in memory so redraws no longer re-parse ~94KB of JSON.",
+    ],
+    coverImage: "/projects/verse-widget-android.png",
+    overview:
+      "A personal Android home-screen widget showing one Bible verse or movie quote a day, drawn from a curated pool of 253 verses and 199 watchlist quotes tagged by mood (cemas, kuat, syukur, lelah, takut, harapan, damai, kasih, sedih, bingung). Tapping the verse shuffles within the current mood, tapping the chip opens a mood picker, and the palette shifts with the selected mood. Built entirely on the classic AppWidgetProvider/RemoteViews stack, where the real engineering is in what a widget cannot do: no persistent process, no arbitrary views, and a strict budget on how often it may wake up.",
+    techDetails: [
+      { name: "Kotlin", description: "The full app: widget provider, repository, launcher activity, and mood picker." },
+      { name: "Android SDK", description: "AppWidgetProvider, RemoteViews, PendingIntent-driven widget actions, AlarmManager scheduling, and SharedPreferences for state." },
+      { name: "App Widgets", description: "Two layouts (full and compact) picked at runtime from the widget's measured size, plus eight mood-driven background/accent palettes and light/dark colour resources." },
+      { name: "JUnit", description: "Unit tests over the pure logic: pagination at word boundaries, picker determinism and range, guaranteed shuffle change, and refresh-boundary calculation." },
+      { name: "Gradle", description: "Kotlin DSL build (JDK 17 target) producing the installable debug APK." },
+    ],
+    features: [
+      {
+        title: "One verse per day, deterministically",
+        description: "The index is derived from the date rather than stored randomness, so every redraw within a day returns the same entry and a new day yields a new one, with no background job involved.",
+      },
+      {
+        title: "Mood tags",
+        description: "Ten mood tags filter the pool; the selected mood also drives the widget's background gradient and accent colour, and the pool falls back to everything when a mood has no matches.",
+      },
+      {
+        title: "Bilingual text",
+        description: "Indonesian (Terjemahan Baru), English (World English Bible), or a mixed mode that alternates by day, falling back to whichever text exists for that entry.",
+      },
+      {
+        title: "Tap-through pagination",
+        description: "Long passages split at word boundaries into ~120-character pages, so a small widget can still show a full verse across taps instead of truncating it.",
+      },
+      {
+        title: "Size-aware layout and time-aware greeting",
+        description: "Small widgets drop the header to keep the text readable, and the companion app greets by time of day (Pagi/Siang/Sore/Malam) alongside today's entry and pool stats.",
+      },
+    ],
+    challenges: [
+      {
+        title: "Making \"one per day\" survive an unpredictable widget lifecycle",
+        description:
+          "A widget is redrawn at moments you do not control: resizes, launcher restarts, reboots, timezone changes. Storing a randomly chosen index would drift, so the pick is computed from epoch day, shuffle count, and tag hash through an xorshift, making the widget stateless with respect to its content while still allowing a shuffle to bump it.",
+        code: "pickIndex(epochDay, shuffle, tagHash, poolSize)",
+      },
+      {
+        title: "Guaranteeing a shuffle actually changes the verse",
+        description: "A hash-based pick can legitimately return the same index twice in a row, which reads as a broken button. The picker compares against the pre-shuffle result and steps forward on a collision, and a unit test asserts this across many days and pool sizes.",
+      },
+      {
+        title: "Refreshing without draining the battery",
+        description:
+          "Content and greeting only change at five moments a day, so instead of a periodic update interval the provider computes the next boundary and sets a single AlarmManager alarm for it, rescheduling after each fire and on time/timezone changes.",
+      },
+      {
+        title: "Keeping widget redraws cheap",
+        description: "Every redraw originally re-parsed roughly 94KB of JSON from assets. Since assets cannot change within an install, the parsed pool is cached for the process lifetime, taking the parse cost out of the redraw path entirely.",
+      },
+    ],
+    lessons: [
+      "Deriving state from the date instead of storing it removed a whole class of widget lifecycle bugs: the widget can be killed at any moment and still shows the right thing.",
+      "Keeping the interesting logic in pure functions (picker, paginator, refresh scheduler) made it unit-testable on the JVM without an emulator, which is rare for widget code.",
+      "Widget constraints (RemoteViews only, no persistent process, battery-conscious updates) push you toward simpler designs than a normal activity would, and the result is easier to reason about.",
     ],
   },
   {

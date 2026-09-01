@@ -1,4 +1,25 @@
-import { Database, Webhook, BarChart3, Globe, Code2, type LucideIcon } from "lucide-react";
+import {
+  Database,
+  Webhook,
+  BarChart3,
+  Globe,
+  Code2,
+  Smartphone,
+  LayoutGrid,
+  FlaskConical,
+  Boxes,
+  Hexagon,
+  Send,
+  CalendarDays,
+  CalendarClock,
+  KeyRound,
+  Braces,
+  Cloud,
+  ScanText,
+  Palette,
+  AlarmClock,
+  type LucideIcon,
+} from "lucide-react";
 import * as paths from "./iconPaths";
 
 type BrandEntry = { kind: "brand"; path: string; color?: string; mono?: boolean };
@@ -51,6 +72,26 @@ export const techIcons: Record<string, TechEntry> = {
   "React Router": { kind: "brand", path: paths.ReactRouterPath, color: "#CA4245" },
   Leaflet: { kind: "brand", path: paths.LeafletPath, color: "#199900" },
   Recharts: { kind: "lucide", icon: BarChart3, color: "#8884D8" },
+  Kotlin: { kind: "brand", path: paths.KotlinPath, color: "#7F52FF" },
+  "Android SDK": { kind: "lucide", icon: Smartphone, color: "#3DDC84" },
+  "Android Studio": { kind: "lucide", icon: Smartphone, color: "#3DDC84" },
+  "App Widgets": { kind: "lucide", icon: LayoutGrid, color: "#3DDC84" },
+  JUnit: { kind: "lucide", icon: FlaskConical, color: "#25A162" },
+  Gradle: { kind: "lucide", icon: Boxes, color: "#02303A" },
+  "Node.js": { kind: "lucide", icon: Hexagon, color: "#5FA04E" },
+  "Telegram Bot API": { kind: "lucide", icon: Send, color: "#26A5E4" },
+  "python-telegram-bot": { kind: "lucide", icon: Send, color: "#26A5E4" },
+  "Google Calendar API": { kind: "lucide", icon: CalendarDays, color: "#4285F4" },
+  "Notion API": { kind: "brand", path: paths.NotionPath, mono: true },
+  "OAuth 2.0": { kind: "lucide", icon: KeyRound, color: "#EB5424" },
+  dateparser: { kind: "lucide", icon: CalendarClock, color: "#3776AB" },
+  "Upstash Redis": { kind: "lucide", icon: Database, color: "#DC382C" },
+  Webhooks: { kind: "lucide", icon: Webhook, color: "#6366F1" },
+  "Serverless Functions": { kind: "lucide", icon: Cloud, color: "#0EA5E9" },
+  "Regex Parsing": { kind: "lucide", icon: Braces, color: "#F59E0B" },
+  "ML Kit OCR": { kind: "lucide", icon: ScanText, color: "#4285F4" },
+  "Jetpack Compose": { kind: "lucide", icon: Palette, color: "#4285F4" },
+  AlarmManager: { kind: "lucide", icon: AlarmClock, color: "#3DDC84" },
 };
 
 export function getTechIcon(name: string): TechEntry {
