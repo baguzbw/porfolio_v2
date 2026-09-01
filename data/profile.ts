@@ -17,7 +17,7 @@ export const profile = {
     github: "https://github.com/baguswicaksono",
     linkedin: "https://www.linkedin.com/in/bagus-brang-wicaksono-aa417021b/",
     instagram: "https://www.instagram.com/baguzbw/",
-    portfolio: "https://baguswicaksono.vercel.app",
+    portfolio: "https://bagusbrangwicaksono.vercel.app",
   },
   about: [
     "I'm Bagus, a Surakarta-based Software Engineer focused on building web platforms that are well-structured, maintainable, and grounded in real requirements, not just interfaces that look finished.",
